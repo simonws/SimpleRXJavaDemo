@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
                 subscriber.onNext(1);
             }})
                 .subscribeOn(new Scheduler.Schedulers().io())
+                .observeOn(new Scheduler.Schedulers().mainThread())
                 .subscribe(new Subscriber<Integer>() {
                     @Override
                     public void onCompleted() {

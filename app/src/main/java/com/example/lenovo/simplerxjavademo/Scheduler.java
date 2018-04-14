@@ -1,5 +1,9 @@
 package com.example.lenovo.simplerxjavademo;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.NonNull;
+
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -28,9 +32,26 @@ public class Scheduler {
 
 
     public static class Schedulers {
+        private  final Scheduler mainScheduler = new Scheduler(new MainSchedulers());
         private  final Scheduler ioScheduler = new Scheduler(Executors.newSingleThreadExecutor());
         public  Scheduler io() {
             return ioScheduler;
+        }
+
+        public  Scheduler mainThread() {
+            return mainScheduler;
+        }
+    }
+
+    private static class MainSchedulers implements Executor{
+        Handler handler;
+        public MainSchedulers(){
+            handler = new Handler(Looper.getMainLooper());
+        }
+
+        @Override
+        public void execute(@NonNull Runnable command) {
+            handler.post(command);
         }
     }
 }
