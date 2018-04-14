@@ -23,7 +23,15 @@ public class MainActivity extends AppCompatActivity {
             }})
                 .subscribeOn(new Scheduler.Schedulers().io())
                 .observeOn(new Scheduler.Schedulers().mainThread())
-                .subscribe(new Subscriber<Integer>() {
+                .map(new Transformer<Integer, String>() {
+
+
+                    @Override
+                    public String call(Integer from) {
+                        return null;
+                    }
+                })
+                .subscribe(new Subscriber<String>() {
                     @Override
                     public void onCompleted() {
 
@@ -35,10 +43,11 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onNext(Integer var1) {
+                    public void onNext(String var1) {
                         System.out.println("Subscriber@ "+Thread.currentThread().getName()); // new Thread
                         System.out.println(var1);
                     }
-                });
+                })
+                ;
     }
 }

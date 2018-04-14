@@ -39,6 +39,7 @@ public class Scheduler {
         }
 
         public  Scheduler mainThread() {
+           int ss =  Observer.a;
             return mainScheduler;
         }
     }
